@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/pages/welcome/welcomePage.dart';
+import 'package:news/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       home: const WelcomePage(
         key: Key('welcomePage'),
       ),
+      routes: staticRoutes,
     );
   }
 }

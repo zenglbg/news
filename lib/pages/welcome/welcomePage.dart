@@ -68,7 +68,7 @@ class WelcomePage extends StatelessWidget {
   }
 
   /// 开始按钮
-  Widget _buildStartButton() {
+  Widget _buildStartButton(BuildContext context) {
     return Container(
       width: 295.w,
       height: 44.h,
@@ -80,7 +80,9 @@ class WelcomePage extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(6.w)),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/sign-in');
+        },
       ),
     );
   }
@@ -106,7 +108,7 @@ class WelcomePage extends StatelessWidget {
               'feature-1',
               "Compelling photography and typography provide a beautiful reading",
               86),
-          _buildStartButton()
+          _buildStartButton(context)
         ],
       )),
     );
