@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news/pages/sign_in/button_widget.dart';
 import 'package:news/utils/utils.dart';
 import 'package:news/values/values.dart';
+import 'package:news/widgets/widgets.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class _SignInPageState extends State<SignInPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
+          SizedBox(
             height: lbSetHeight(76),
             width: lbSetWidth(76),
             child: Stack(
@@ -32,7 +32,7 @@ class _SignInPageState extends State<SignInPage> {
                   height: lbSetHeight(76),
                   decoration: BoxDecoration(
                       color: AppColors.primaryBackground,
-                      boxShadow: [Shadows.primaryShadow],
+                      boxShadow: const [Shadows.primaryShadow],
                       borderRadius: BorderRadius.all(
                           Radius.circular(lbSetWidth(76 * .5)))),
                   child: Container(),
@@ -59,93 +59,28 @@ class _SignInPageState extends State<SignInPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // email
-          Container(
-            height: lbSetHeight(44),
-            decoration: BoxDecoration(
-                color: AppColors.secondaryElement,
-                borderRadius: Radii.k6pxRadius),
-            child: TextField(
+          inputTextEdit(
               controller: emailController,
-              maxLines: 1,
-              style: TextStyle(
-                  color: AppColors.primaryText,
-                  fontFamily: 'Avenir',
-                  fontWeight: FontWeight.w400,
-                  fontSize: lbSetFontSize(18)),
-              autocorrect: false, // 自动纠正
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                  hintText: 'Email',
-                  contentPadding: EdgeInsets.fromLTRB(20, 10, 0, 9),
-                  border: InputBorder.none),
-            ),
-          ),
+              hintText: "Email",
+              isPassword: false),
           // pass
-          Container(
-            height: lbSetHeight(44),
-            margin: EdgeInsets.only(top: lbSetHeight(15)),
-            decoration: BoxDecoration(
-                color: AppColors.secondaryElement,
-                borderRadius: Radii.k6pxRadius),
-            child: TextField(
+          inputTextEdit(
               controller: passController,
-              maxLines: 1,
-              autocorrect: false, // 自动纠正
-              style: TextStyle(
-                  color: AppColors.primaryText,
-                  fontFamily: 'Avenir',
-                  fontWeight: FontWeight.w400,
-                  fontSize: lbSetFontSize(18)),
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                  hintText: 'Password',
-                  contentPadding: EdgeInsets.fromLTRB(20, 10, 0, 9),
-                  border: InputBorder.none),
-            ),
-          ),
+              keyboardType: TextInputType.visiblePassword,
+              hintText: "Password",
+              isPassword: true),
           // 登陆注册
           Container(
             height: lbSetHeight(44),
             margin: EdgeInsets.only(top: lbSetHeight(15)),
             child: Row(children: [
-              Container(
-                  width: lbSetWidth(140),
-                  height: lbSetHeight(44),
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: Radii.k6pxRadius),
-                          primary: AppColors.primaryElement),
-                      child: Text(
-                        "Sign up",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: AppColors.primaryElementText,
-                            fontSize: lbSetFontSize(18)),
-                      ))),
-              Spacer(),
-              Container(
-                  width: lbSetWidth(140),
-                  height: lbSetHeight(44),
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: Radii.k6pxRadius),
-                          primary: AppColors.primaryElement),
-                      child: Text(
-                        "Sign in",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: AppColors.primaryElementText,
-                            fontSize: lbSetFontSize(18)),
-                      ))),
+              btnFlatButtonWidget(onPressed: () {}, title: "Sign up"),
+              const Spacer(),
+              btnFlatButtonWidget(onPressed: _handleSignIn, title: "Sign 1 in"),
             ]),
-          )
-
+          ),
           // forgot Password
-          ,
           Container(
             height: lbSetHeight(22),
             margin: EdgeInsets.only(top: lbSetHeight(20)),
@@ -184,11 +119,11 @@ class _SignInPageState extends State<SignInPage> {
         Padding(
           padding: EdgeInsets.only(top: lbSetHeight(20)),
           child: Row(children: [
-            btnThirdSocialWidget('twitter'),
-            Spacer(),
-            btnThirdSocialWidget('google'),
-            Spacer(),
-            btnThirdSocialWidget('facebook')
+            btnThirdSocialWidget(onPressed: () {}, fileName: 'twitter'),
+            const Spacer(),
+            btnThirdSocialWidget(onPressed: () {}, fileName: 'google'),
+            const Spacer(),
+            btnThirdSocialWidget(onPressed: () {}, fileName: 'facebook')
           ]),
         )
       ]),
@@ -203,7 +138,8 @@ class _SignInPageState extends State<SignInPage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: AppColors.secondaryElement,
-            shape: RoundedRectangleBorder(borderRadius: Radii.k6pxRadius)),
+            shape:
+                const RoundedRectangleBorder(borderRadius: Radii.k6pxRadius)),
         child: Text(
           'Sign up',
           style: TextStyle(
@@ -221,6 +157,17 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  void _handleSignIn() {
+    if (!lbIsEmail(emailController.value.text)) {
+      toastInfo(msg: '请输入正确的邮件地址');
+      return;
+    }
+    if (!lbCheckStringLength(passController.value.text, 6)) {
+      toastInfo(msg: '密码长度不能低于6位');
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -229,7 +176,7 @@ class _SignInPageState extends State<SignInPage> {
         children: [
           _buildLogo(),
           _buildInputForm(),
-          Spacer(),
+          const Spacer(),
           _buildThirdPartLogin(),
           _buildSignUpButton()
         ],
