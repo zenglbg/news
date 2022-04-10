@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news/apis/apiUser.dart';
+import 'package:news/models/User.dart';
 import 'package:news/utils/utils.dart';
 import 'package:news/values/values.dart';
 import 'package:news/widgets/widgets.dart';
@@ -82,12 +84,12 @@ class _SignInPageState extends State<SignInPage> {
           ),
           // forgot Password
           Container(
-            height: lbSetHeight(22),
+            // height: lbSetHeight(22),
             margin: EdgeInsets.only(top: lbSetHeight(20)),
-            child: ElevatedButton(
+            child: TextButton(
               onPressed: () {},
               child: Text(
-                'forgot password?',
+                'Forgot password?',
                 style: TextStyle(
                     color: AppColors.secondaryElementText,
                     fontFamily: 'Avenir',
@@ -157,7 +159,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  void _handleSignIn() {
+  void _handleSignIn() async {
     if (!lbIsEmail(emailController.value.text)) {
       toastInfo(msg: '请输入正确的邮件地址');
       return;
@@ -166,6 +168,12 @@ class _SignInPageState extends State<SignInPage> {
       toastInfo(msg: '密码长度不能低于6位');
       return;
     }
+
+    User params = User(
+        email: emailController.value.text, password: passController.value.text);
+
+    User res = await UserApi.login(params: params);
+    print(res);
   }
 
   @override
