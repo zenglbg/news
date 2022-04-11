@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news/apis/apiUser.dart';
-import 'package:news/models/User.dart';
+import 'package:news/models/index.dart';
 import 'package:news/utils/utils.dart';
 import 'package:news/values/values.dart';
 import 'package:news/widgets/widgets.dart';
@@ -169,11 +169,11 @@ class _SignInPageState extends State<SignInPage> {
       return;
     }
 
-    User params = User(
-        email: emailController.value.text, password: passController.value.text);
-
-    User res = await UserApi.login(params: params);
-    print(res);
+    Login params = Login();
+    params.email = emailController.value.text;
+    params.passwrod = passController.value.text;
+    var res = await UserApi.login(params: params);
+    print("${res}   djflajflsa");
   }
 
   @override

@@ -10,7 +10,7 @@ class HttpUtil {
   CancelToken cancelToken = new CancelToken();
 
   HttpUtil._internal() {
-    BaseOptions options = new BaseOptions(baseUrl: '/api');
+    BaseOptions options = new BaseOptions(baseUrl: 'http://localhost:3333');
 
     dio = new Dio(options);
   }
@@ -18,12 +18,12 @@ class HttpUtil {
   /// 读取本地配置
   Options getLocalOptions() {
     Options options = Options();
-    String token = StorageUtil().getItem(STORAGE_USER_TOKEN_KEY);
-    if (token != null) {
-      options = Options(headers: {
-        'Authorization': 'Bearer $token',
-      });
-    }
+    // String token = StorageUtil().getItem(STORAGE_USER_TOKEN_KEY);
+    // if (token != null) {
+    //   options = Options(headers: {
+    //     'Authorization': 'Bearer $token',
+    //   });
+    // }
     return options;
   }
 
