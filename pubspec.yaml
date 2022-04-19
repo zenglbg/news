@@ -32,7 +32,7 @@ dependencies:
   equatable: any
   freezed_annotation: any
   fluttertoast: ^8.0.9
-
+  
   dio:
   localstorage:
   json_annotation:
@@ -43,6 +43,7 @@ dependencies:
 
 
   flutter_screenutil:
+  just_audio:
   
 dev_dependencies:
   flutter_test:

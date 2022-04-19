@@ -15,7 +15,7 @@ class StorageUtil {
     _storage = new LocalStorage(STORAGE_MASTER_KEY);
   }
 
-  String getItem(String key) {
+  dynamic getItem(String key) {
     return _storage.getItem(key);
   }
 

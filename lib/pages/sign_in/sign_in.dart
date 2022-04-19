@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:news/apis/apiUser.dart';
 import 'package:news/models/index.dart';
 import 'package:news/utils/utils.dart';
@@ -79,7 +80,7 @@ class _SignInPageState extends State<SignInPage> {
             child: Row(children: [
               btnFlatButtonWidget(onPressed: () {}, title: "Sign up"),
               const Spacer(),
-              btnFlatButtonWidget(onPressed: _handleSignIn, title: "Sign 1 in"),
+              btnFlatButtonWidget(onPressed: _handleSignIn, title: "Sign in"),
             ]),
           ),
           // forgot Password
@@ -157,6 +158,12 @@ class _SignInPageState extends State<SignInPage> {
         },
       ),
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   void _handleSignIn() async {
